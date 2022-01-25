@@ -1,4 +1,4 @@
-let AllBooks = [];
+let AllBooks = new Book[25];
 let AllBooksIdx = 0;
 function Book(Title,Author,NumOfPages,DateOfPublication,Read){
     this.Title = Title;
@@ -13,4 +13,14 @@ Book.prototype.PrintDetails = function(){
 function StoreBook(BookObject){
     AllBooksIdx++;
     AllBooks[AllBooksIdx] = BookObject;
+}
+function AddNewbook(NewTitle,NewAuthor,NewNumOfPages,NewDateOfPublication,NewRead){
+    const NewBook = new Book(NewTitle,NewAuthor,NewNumOfPages,NewDateOfPublication,NewRead);
+    StoreBook(NewBook);
+}
+function DisplayAllBooks(){
+    for (let i = 0; i < AllBooksIdx + 1; i++){
+        console.log("Book Number: " + i + 1);
+        console.log(PrintDetails(AllBooks[i]));
+    }
 }
