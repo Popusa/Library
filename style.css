@@ -26,6 +26,22 @@ header{
 }
 .bookshelf{
     color:white;
-    background-color:blue;
+    background-color:rgb(53, 11, 11);
     width:100%;
+    display:grid;
+    justify-content:center;
+    align-content:center;
+}
+.addbookdiv{
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+}
+#addbookbutton{
+    padding:16px;
+    border-radius:2em;
+    border-width:1em;
+    border-color:crimson;
+    background-color:rgb(105, 13, 13);
+    color:white;
 }
