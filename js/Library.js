@@ -1,3 +1,4 @@
+const submitbutton = document.querySelector('#Submit');
 let AllBooks = new Book[25];
 let AllBooksIdx = 0;
 function Book(Title,Author,NumOfPages,DateOfPublication,Read){
