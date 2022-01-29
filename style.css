@@ -31,6 +31,13 @@ header{
     display:grid;
     justify-content:center;
     align-content:center;
+    background-image: url("images/bg.jpg");
+}
+.add-book-form-container{
+    text-align:center;
+    background-image: url(images/book-cover.jpg);
+    padding:12px;
+    margin-bottom:25px;
 }
 .addbookdiv{
     position: fixed;
@@ -41,6 +48,22 @@ header{
     padding:16px;
     border-radius:2em;
     border-width:1em;
+    border-color:crimson;
+    background-color:rgb(105, 13, 13);
+    color:white;
+}
+#Title,#Author,#NumOfPages{
+    border-radius:2em;
+    border-color:crimson;
+    background-color:rgb(105, 13, 13);
+    color:white;
+}
+#read-status-button{
+    background-color:green;
+    color:white;
+}
+#Submit{
+    border-radius:2em;
     border-color:crimson;
     background-color:rgb(105, 13, 13);
     color:white;

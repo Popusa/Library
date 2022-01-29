@@ -20,26 +20,24 @@
         ADDBOOK
     </div>
     <div class = "bookshelf">
-        <form id = "addedbook" action="/js/Library.js">
+        <div class = "add-book-form-container">
+        <form id = "add-book-form">
             <label for="Title">Title:</label><br>
-            <input type="text" id="Title" name="Title" value="Title"><br>
+            <input type="text" id="Title" name="Title" placeholder="Title"><br>
             <label for="Author">Author</label><br>
-            <input type="text" id="Author" name="Author" value="Author"><br><br>
+            <input type="text" id="Author" name="Author" placeholder="Author"><br>
             <label for="NumOfPages">Number of Pages:</label><br>
-            <input type="text" id="NumOfPages" name="NumOfPages" value="0"><br><br>
-            <label for="DOP">Date Of Publication:</label><br>
-            <input type="date" id="DOP" name="DOP" value=""><br><br>
-            <p> Did you finish reading the book?</p>
-            <input type="radio" id="ReadYes" name="ReadStatus" value="Yes">
-            <label for="ReadStatus">Yes</label>
-            <input type="radio" id="ReadNo" name="ReadStatus" value="No">
-            <label for="ReadStatus">No</label> <br><br>
-            <input type="submit" value="Submit">
+            <input type="text" id="NumOfPages" name="NumOfPages" placeholder="# Of Pages"><br>
+            <p span id = "read-status-text"> Did you finish reading the book?</p>
+            <button id = "read-status-button">Yes</button><br><br>
+            <input type="submit" id="Submit">
           </form>
+        </div>
         <div class = "addbookdiv">
         <button onclick="document.location='index.html'" id = "addbookbutton">Cancel</button>
         </div>
     </div>
 </div>
+<script src = "js/Library.js"></script>
 </body>
 </html>

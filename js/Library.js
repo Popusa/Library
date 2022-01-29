@@ -1,11 +1,14 @@
-const submitbutton = document.querySelector('#Submit');
-let AllBooks = new Book[25];
+const submit_button = document.querySelector('#submit');
+const get_title = document.querySelector('.Title');
+const get_author = document.querySelector('.Author');
+const get_num_of_pages = document.querySelector('.NumOfPages');
+const get_read_status = document.querySelector('#read-status-button');
+let AllBooks = [];
 let AllBooksIdx = 0;
-function Book(Title,Author,NumOfPages,DateOfPublication,Read){
+function Book(Title,Author,NumOfPages,Read){
     this.Title = Title;
     this.Author = Author;
     this.NumOfPages = NumOfPages;
-    this.DateOfPublication = DateOfPublication;
     this.Read = Read;
 }
 Book.prototype.PrintDetails = function(){
@@ -15,9 +18,18 @@ function StoreBook(BookObject){
     AllBooksIdx++;
     AllBooks[AllBooksIdx] = BookObject;
 }
-function AddNewbook(NewTitle,NewAuthor,NewNumOfPages,NewDateOfPublication,NewRead){
-    const NewBook = new Book(NewTitle,NewAuthor,NewNumOfPages,NewDateOfPublication,NewRead);
+function AddNewbook(NewTitle,NewAuthor,NewNumOfPages,NewRead){
+    const NewBook = new Book(NewTitle,NewAuthor,NewNumOfPages,NewRead);
+    NewBook.NewTitle = get_title;
+    NewBook.NewAuthor = get_author;
+    NewBook.NewNumOfPages = get_num_of_pages;
+    if (get_read_status.InnerText == "Yes")
+        NewBook.NewRead = true;
+    else
+        NewBook.NewRead = false;
     StoreBook(NewBook);
+    console.log(NewBook.PrintDetails);
+    location.href = 'index.html';
 }
 function DisplayAllBooks(){
     for (let i = 0; i < AllBooksIdx + 1; i++){
@@ -25,3 +37,15 @@ function DisplayAllBooks(){
         console.log(PrintDetails(AllBooks[i]));
     }
 }
+function AlternateReadStatus(){
+    if (get_read_status.InnerText == "Yes"){
+        get_read_status.style.backgroundColor = "rgb(255,0,0)";
+        get_read_status.InnerText = "No";
+    }
+    else{
+        get_read_status.style.backgroundColor = "rgb(0,255,0)";
+        get_read_status.InnerText = "Yes";
+    }
+}
+//submit_button.addEventListener('click',AddNewbook);
+get_read_status.addEventListener('click',AlternateReadStatus);
