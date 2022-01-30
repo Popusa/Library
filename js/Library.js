@@ -23,7 +23,7 @@ function AddNewbook(NewTitle,NewAuthor,NewNumOfPages,NewRead){
     NewBook.NewTitle = get_title;
     NewBook.NewAuthor = get_author;
     NewBook.NewNumOfPages = get_num_of_pages;
-    if (get_read_status.InnerText == "Yes")
+    if (get_read_status.innerText == "Yes")
         NewBook.NewRead = true;
     else
         NewBook.NewRead = false;
@@ -38,14 +38,14 @@ function DisplayAllBooks(){
     }
 }
 function AlternateReadStatus(){
-    if (get_read_status.InnerText == "Yes"){
+    if (get_read_status.innerText == "Yes"){
         get_read_status.style.backgroundColor = "rgb(255,0,0)";
-        get_read_status.InnerText = "No";
+        get_read_status.innerText = "No";
     }
     else{
         get_read_status.style.backgroundColor = "rgb(0,255,0)";
-        get_read_status.InnerText = "Yes";
+        get_read_status.innerText = "Yes";
     }
 }
-//submit_button.addEventListener('click',AddNewbook);
+//submit_button && submit_button.addEventListener('click',AddNewbook);
 get_read_status.addEventListener('click',AlternateReadStatus);
