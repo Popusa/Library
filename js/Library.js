@@ -1,8 +1,4 @@
-const submit_button = document.querySelector('#submit');
-const get_title = document.querySelector('.Title');
-const get_author = document.querySelector('.Author');
-const get_num_of_pages = document.querySelector('.NumOfPages');
-const get_read_status = document.querySelector('#read-status-button');
+const form = document.querySelector('add-book-form');
 let AllBooks = [];
 let AllBooksIdx = 0;
 function Book(Title,Author,NumOfPages,Read){
@@ -28,7 +24,7 @@ function AddNewbook(NewTitle,NewAuthor,NewNumOfPages,NewRead){
     else
         NewBook.NewRead = false;
     StoreBook(NewBook);
-    console.log(NewBook.PrintDetails);
+    console.log(NewBook.PrintDetails());
     location.href = 'index.html';
 }
 function DisplayAllBooks(){
@@ -37,15 +33,4 @@ function DisplayAllBooks(){
         console.log(PrintDetails(AllBooks[i]));
     }
 }
-function AlternateReadStatus(){
-    if (get_read_status.innerText == "Yes"){
-        get_read_status.style.backgroundColor = "rgb(255,0,0)";
-        get_read_status.innerText = "No";
-    }
-    else{
-        get_read_status.style.backgroundColor = "rgb(0,255,0)";
-        get_read_status.innerText = "Yes";
-    }
-}
-//submit_button && submit_button.addEventListener('click',AddNewbook);
-get_read_status.addEventListener('click',AlternateReadStatus);
+submit_button && submit_button.addEventListener('click',AddNewbook);
