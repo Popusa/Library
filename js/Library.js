@@ -1,4 +1,5 @@
-const form = document.querySelector('add-book-form');
+const form = document.querySelector('#add-book-form');
+const submit_button = document.querySelector('#Submit');
 let AllBooks = [];
 let AllBooksIdx = 0;
 function Book(Title,Author,NumOfPages,Read){
@@ -8,29 +9,34 @@ function Book(Title,Author,NumOfPages,Read){
     this.Read = Read;
 }
 Book.prototype.PrintDetails = function(){
-    return "Title: " + this.Title + " Author: " + this.Author + " Page Count:" + this.NumOfPages + " Date Of Publication: " + this.DateOfPublication + "This book's read status is: " + read;
+    return "Title: " + this.Title + " Author: " + this.Author + " Page Count:" + this.NumOfPages + "This book's read status is: " + this.Read;
 }
 function StoreBook(BookObject){
-    AllBooksIdx++;
     AllBooks[AllBooksIdx] = BookObject;
+    AllBooksIdx++;
 }
-function AddNewbook(NewTitle,NewAuthor,NewNumOfPages,NewRead){
-    const NewBook = new Book(NewTitle,NewAuthor,NewNumOfPages,NewRead);
-    NewBook.NewTitle = get_title;
-    NewBook.NewAuthor = get_author;
-    NewBook.NewNumOfPages = get_num_of_pages;
-    if (get_read_status.innerText == "Yes")
-        NewBook.NewRead = true;
+function AddNewbook(){ 
+    // console.log("function was called");
+    let NewBook = new Book();
+    NewBook.Title = form.elements[0].value;
+    NewBook.Author = form.elements[1].value;
+    NewBook.NumOfPages = form.elements[2].value;
+    if (document.getElementById('read-status-yes').checked == true)
+        NewBook.Read = "Yes";
     else
-        NewBook.NewRead = false;
+        NewBook.Read = "No";
     StoreBook(NewBook);
     console.log(NewBook.PrintDetails());
-    location.href = 'index.html';
+    // console.log("function reached end.");
 }
 function DisplayAllBooks(){
     for (let i = 0; i < AllBooksIdx + 1; i++){
         console.log("Book Number: " + i + 1);
-        console.log(PrintDetails(AllBooks[i]));
+        console.log(AllBooks[i].PrintDetails());
     }
 }
-submit_button && submit_button.addEventListener('click',AddNewbook);
+form && form.addEventListener('submit',function(e) {
+    e.preventDefault();
+    AddNewbook();
+});
+//console.log(DisplayAllBooks());
