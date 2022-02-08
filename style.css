@@ -24,11 +24,8 @@ header{
     color:white;
     text-align:center;
 }
-.bookshelf,.bookshelf-alt{
+.bookshelf{
     color:white;
-    display:grid;
-    grid-template-rows: (4,1fr);
-    grid-template-columns: (4,1fr);
     width:100%;
     background-image: url("images/bg.jpg");
 }
@@ -37,11 +34,21 @@ header{
     background-image: url(images/book-cover.jpg);
     background-repeat: no-repeat;
     padding:12px;
-    margin-top:auto;
-    margin-bottom:auto;
-    margin-left:auto;
-    margin-right:auto;
-    display:none;
+    position:fixed;
+    top: 50%;
+    left: 48%;
+    margin: -100px 0 0 auto;
+}
+.all_books{
+    display: grid;
+    position:fixed;
+    grid-template-columns: auto auto auto;
+    min-width:100%;
+    max-height:100%;
+    margin-top:12px;
+    margin-left:12px;
+    margin-bottom:12px;
+    gap:8px;
 }
 .add-book-button-container{
     position: fixed;

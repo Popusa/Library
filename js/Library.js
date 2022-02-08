@@ -1,6 +1,7 @@
 const form = document.querySelector('#add-book-form');
 const submit_button = document.querySelector('#Submit');
-const bookshelfee = document.getElementById("#bookshelf");
+const bookshelfee = document.querySelector(".bookshelf");
+const all_books = document.querySelector(".all_books");
 const add_book_button = document.querySelector("#add-book-button");
 const add_book_form_container = document.querySelector(".add-book-form-container");
 const entire_page = document.querySelector(".fullpage");
@@ -26,11 +27,16 @@ function CreateBookDiv(){
     div.style.height = "100px";
     div.style.background = "red";
     div.style.color = "white";
-    div.innerText = "Hello";
-    bookshelfee.appendChild(div);
+    div.style.textAlign = "center";
+    div.innerText = "Test";
+    all_books.appendChild(div);
 }
 function AddNewbook(){ 
     // console.log("function was called");
+    if (AllBooksIdx == 9){
+        console.log("limit reached.");
+        return;
+    }
     let NewBook = new Book();
     NewBook.Title = form.elements[0].value;
     NewBook.Author = form.elements[1].value;
@@ -63,10 +69,12 @@ add_book_button.addEventListener('click',function(){
     else{
         add_book_button.innerText = "Cancel";
         add_book_form_container.style.display = "block";
-        entire_page.style.backgroundColor = 'rgba(0,0,0,0.2)';
+        bookshelfee.style.backgroundColor = "rgba(0,0,0,0.2)";
         add_book_button.style.opacity = "1.0";
         add_book_form_container.style.opacity = "1.0";
         Create_Book = false;
     }
 });
 //console.log(DisplayAllBooks());
+add_book_form_container.style.display = "none";
+//CreateBookDiv();
