@@ -5,6 +5,7 @@ const all_books = document.querySelector(".all_books");
 const add_book_button = document.querySelector("#add-book-button");
 const add_book_form_container = document.querySelector(".add-book-form-container");
 const entire_page = document.querySelector(".fullpage");
+const popup = document.querySelector(".popup");
 let Create_Book = true;
 let Books = [];
 let AllBooksIdx = 0;
@@ -94,25 +95,25 @@ function DisplayAllBooks(){
 }
 form && form.addEventListener('submit',function(e) {
     e.preventDefault();
+    add_book_button.innerText = "Add book";
+    popup.style.display = "none";
+    Create_Book = true;
     AddNewbook();
 });
 add_book_button.addEventListener('click',function(){
     if (!Create_Book){
         add_book_button.innerText = "Add book";
-        add_book_form_container.style.display = "none";
+        popup.style.display = "none";
         Create_Book = true;
     }
     else{
         add_book_button.innerText = "Cancel";
-        add_book_form_container.style.display = "block";
-        bookshelfee.style.backgroundColor = "rgba(0,0,0,0.2)";
-        add_book_button.style.opacity = "1.0";
-        add_book_form_container.style.opacity = "1.0";
+        popup.style.display = "block";
         Create_Book = false;
     }
 });
 //console.log(DisplayAllBooks());
-add_book_form_container.style.display = "none";
+popup.style.display = "none";
 //testing purposes
-const Test = new Book("Title","Author","150",true);
+const Test = new Book("The Power of Habit","Charles Duhigg","371",true);
 CreateBookDiv(Test);
