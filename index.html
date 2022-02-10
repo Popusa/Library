@@ -21,7 +21,7 @@
     </div> -->
     <div class = "bookshelf">
         <div class = "all_books"></div>
-        <div class = "popup">
+        <div class = "add-book-popup">
         <div class = "add-book-form-container">
             <form id = "add-book-form">
                 <legend class  = "add-book-form-legend">Add Book Form</legend>
@@ -40,9 +40,10 @@
               </form>
             </div>
         </div>
+        <div class = edit-book-popup>
         <div class = "edit-book-form-container">
             <form id = "edit-book-form">
-                <legend class  = "edit-book-form-legend">Add Book Form</legend>
+                <legend class  = "edit-book-form-legend">Edit Book Form</legend>
                 <label for="Title">Title:</label><br>
                 <input type="text" id="Title" name="Title" placeholder="Title"><br>
                 <label for="Author">Author</label><br>
@@ -55,7 +56,9 @@
                 <input type="radio" id="read-status-no" name="read-status-button" value="No">
                 <label for="read-status-no">No</label><br><br>
                 <input type="submit" id="Submit">
+                <button id = "close-edit-book-form">Discard Edits</button>
             </form>
+        </div>
         </div>
         <div class = "add-book-button-container">
         <button id = "add-book-button">Add book</button>

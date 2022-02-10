@@ -1,12 +1,14 @@
 const add_book_form = document.querySelector('#add-book-form');
 const edit_book_form = document.querySelector('#edit-book-form');
-const bookshelfee = document.querySelector(".bookshelf");
-const all_books = document.querySelector(".all_books");
-const add_book_button = document.querySelector("#add-book-button");
-const edit_book_form_container = document.querySelector('.edit-book-form-container');
-const entire_page = document.querySelector(".fullpage");
-const popup = document.querySelector(".popup");
+const bookshelfee = document.querySelector('.bookshelf');
+const all_books = document.querySelector('.all_books');
+const add_book_button = document.querySelector('#add-book-button');
+const entire_page = document.querySelector('.fullpage');
+const add_book_popup = document.querySelector(".add-book-popup");
+const edit_book_popup = document.querySelector('.edit-book-popup');
+const close_edit_book_form_button = document.querySelector('#close-edit-book-form');
 let Create_Book = true;
+let Editing_book = false;
 let Books = [];
 let AllBooksIdx = 0;
 function Book(Title,Author,NumOfPages,Read){
@@ -22,6 +24,9 @@ function StoreBook(BookObject){
     Books[AllBooksIdx] = BookObject;
     AllBooksIdx++;
 }
+// function EditBook(BookObj){
+    //TBD
+// }
 function CreateBookDiv(BookObj){
     const book_div = document.createElement('div');
     const title_div = document.createElement('div');
@@ -72,15 +77,18 @@ function CreateBookDiv(BookObj){
         }
     });
     edit_book_button.addEventListener('click',function(){
-
+        if (!Editing_book){
+            edit_book_popup.style.display = "block";
+            Editing_book = true;
+        }
     });
 }
 function AddNewbook(){ 
-    // console.log("function was called");
-    // if (AllBooksIdx == 9){
-    //     console.log("limit reached.");
-    //     return;
-    // }
+    console.log("function was called");
+    if (AllBooksIdx == 42){
+        alert("limit reached.");
+        return;
+    }
     let NewBook = new Book();
     NewBook.Title = add_book_form.elements[0].value;
     NewBook.Author = add_book_form.elements[1].value;
@@ -100,14 +108,14 @@ function DisplayAllBooks(){
         console.log(Books[i].PrintDetails());
     }
 }
-function RenderBookForm(){
+function DisplayBookForm(){
     add_book_button.innerText = "Cancel";
-    popup.style.display = "block";
+    add_book_popup.style.display = "block";
     Create_Book = false;
 }
 function HideBookForm(){
     add_book_button.innerText = "Add book";
-    popup.style.display = "none";
+    add_book_popup.style.display = "none";
     Create_Book = true;
 }
 add_book_form && add_book_form.addEventListener('submit',function(e) {
@@ -115,16 +123,31 @@ add_book_form && add_book_form.addEventListener('submit',function(e) {
     HideBookForm();
     AddNewbook();
 });
+edit_book_form && edit_book_form.addEventListener('submit',function(e){
+    e.preventDefault();
+    //TBD
+});
 add_book_button.addEventListener('click',function(){
+    if (Editing_book){
+        alert("You cannot add a book while you are editing one!");
+        return;
+    }
+    else{
     if (!Create_Book){
         HideBookForm();
     }
     else
-        RenderBookForm();
+        DisplayBookForm();
+}
+});
+close_edit_book_form_button.addEventListener('click',function(){
+    edit_book_popup.style.display = "none";
+    Editing_book = false;
 });
 //console.log(DisplayAllBooks());
-popup.style.display = "none";
-edit_book_form_container.style.display = "none";
+add_book_popup.style.display = "none";
+edit_book_popup.style.display = "none";
 //testing purposes
 const Test = new Book("The Power of Habit","Charles Duhigg","371",true);
+StoreBook(Test);
 CreateBookDiv(Test);
