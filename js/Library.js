@@ -1,9 +1,9 @@
-const form = document.querySelector('#add-book-form');
-const submit_button = document.querySelector('#Submit');
+const add_book_form = document.querySelector('#add-book-form');
+const edit_book_form = document.querySelector('#edit-book-form');
 const bookshelfee = document.querySelector(".bookshelf");
 const all_books = document.querySelector(".all_books");
 const add_book_button = document.querySelector("#add-book-button");
-const add_book_form_container = document.querySelector(".add-book-form-container");
+const edit_book_form_container = document.querySelector('.edit-book-form-container');
 const entire_page = document.querySelector(".fullpage");
 const popup = document.querySelector(".popup");
 let Create_Book = true;
@@ -28,6 +28,7 @@ function CreateBookDiv(BookObj){
     const author_div = document.createElement('div');
     const NOP_div = document.createElement('div');
     const remove_book_button = document.createElement('button');
+    const edit_book_button = document.createElement('button');
     const read_status_button = document.createElement('button');
     book_div.classList.add('book');
     book_div.setAttribute('id', AllBooksIdx);
@@ -49,6 +50,9 @@ function CreateBookDiv(BookObj){
         read_status_button.innerText = 'Read';
         read_status_button.style.backgroundColor = 'green';
     }
+    edit_book_button.innerText = "Edit Book";
+    edit_book_button.classList.add('edit_book_button');
+    book_div.appendChild(edit_book_button);
     remove_book_button.innerText = 'Delete Book'; 
     remove_book_button.classList.add('remove_book_button');
     book_div.appendChild(remove_book_button);
@@ -67,6 +71,9 @@ function CreateBookDiv(BookObj){
             read_status_button.style.backgroundColor = 'green';
         }
     });
+    edit_book_button.addEventListener('click',function(){
+
+    });
 }
 function AddNewbook(){ 
     // console.log("function was called");
@@ -75,9 +82,9 @@ function AddNewbook(){
     //     return;
     // }
     let NewBook = new Book();
-    NewBook.Title = form.elements[0].value;
-    NewBook.Author = form.elements[1].value;
-    NewBook.NumOfPages = form.elements[2].value;
+    NewBook.Title = add_book_form.elements[0].value;
+    NewBook.Author = add_book_form.elements[1].value;
+    NewBook.NumOfPages = add_book_form.elements[2].value;
     if (document.getElementById('read-status-yes').checked == true)
         NewBook.Read = true;
     else
@@ -93,27 +100,31 @@ function DisplayAllBooks(){
         console.log(Books[i].PrintDetails());
     }
 }
-form && form.addEventListener('submit',function(e) {
-    e.preventDefault();
+function RenderBookForm(){
+    add_book_button.innerText = "Cancel";
+    popup.style.display = "block";
+    Create_Book = false;
+}
+function HideBookForm(){
     add_book_button.innerText = "Add book";
     popup.style.display = "none";
     Create_Book = true;
+}
+add_book_form && add_book_form.addEventListener('submit',function(e) {
+    e.preventDefault();
+    HideBookForm();
     AddNewbook();
 });
 add_book_button.addEventListener('click',function(){
     if (!Create_Book){
-        add_book_button.innerText = "Add book";
-        popup.style.display = "none";
-        Create_Book = true;
+        HideBookForm();
     }
-    else{
-        add_book_button.innerText = "Cancel";
-        popup.style.display = "block";
-        Create_Book = false;
-    }
+    else
+        RenderBookForm();
 });
 //console.log(DisplayAllBooks());
 popup.style.display = "none";
+edit_book_form_container.style.display = "none";
 //testing purposes
 const Test = new Book("The Power of Habit","Charles Duhigg","371",true);
 CreateBookDiv(Test);

@@ -22,7 +22,7 @@ header{
     width:100%;
     background-image: url("images/bg.jpg");
 }
-.add-book-form-container{
+.add-book-form-container,.edit-book-form-container{
     text-align:center;
     background-image: url(images/book-cover.jpg);
     background-repeat: no-repeat;
@@ -31,6 +31,9 @@ header{
     top: 50%;
     left: 48%;
     margin: -100px 0 0 auto;
+}
+.add-book-form-legend,.edit-book-form-legend{
+    padding:8px;
 }
 .all_books{
     display: flex;
@@ -60,7 +63,7 @@ header{
     color:white;
 }
 .popup{
-    background-color:rgba(0,0,0,0.6);
+    background-color:rgba(0,0,0,0.75);
     width:100%;
     height:100%;
     position:fixed;
@@ -68,6 +71,9 @@ header{
     left:0;
 }
 .remove_book_button{
+    background-color: rgba(0, 0, 0, 0.781);
+}
+.edit_book_button{
     background-color: rgba(0, 153, 255, 0.753);
 }
 .add-book-button-container{
