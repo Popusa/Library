@@ -83,6 +83,12 @@ function CreateBookDiv(BookObj){
         }
     });
 }
+function ValidateForm(){
+    let Title = add_book_form.elements[0].value;
+    let Author = add_book_form.elements[1].value;
+    let NumOfPages = add_book_form.elements[2].value;
+    //TBD
+}
 function AddNewbook(){ 
     console.log("function was called");
     if (AllBooksIdx == 42){
@@ -120,8 +126,13 @@ function HideBookForm(){
 }
 add_book_form && add_book_form.addEventListener('submit',function(e) {
     e.preventDefault();
-    HideBookForm();
-    AddNewbook();
+    if (!ValidateForm())
+        return;
+        //TBD
+    else {
+        HideBookForm();
+        AddNewbook();
+    }
 });
 edit_book_form && edit_book_form.addEventListener('submit',function(e){
     e.preventDefault();

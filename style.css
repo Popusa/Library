@@ -10,9 +10,22 @@ body{
 header{
     text-align:center;
     background-color: rgb(22, 20, 20);
-    color:white;
+    color:crimson;
     padding:8px;
 }
+a{
+    text-decoration: none;
+    color:crimson;
+}
+a:link {
+    color: white;
+}
+a:visited{
+    color:rgb(216, 80, 17);
+}
+a:hover{
+    color:rgb(0, 255, 0);
+}   
 .fullpage{
     display:flex;
     height: calc(100% - 70px)
