@@ -1,6 +1,5 @@
 const add_book_form = document.querySelector('#add-book-form');
 const edit_book_form = document.querySelector('#edit-book-form');
-const bookshelfee = document.querySelector('.bookshelf');
 const all_books = document.querySelector('.all_books');
 const add_book_button = document.querySelector('#add-book-button');
 const entire_page = document.querySelector('.fullpage');
@@ -9,7 +8,8 @@ const edit_book_popup = document.querySelector('.edit-book-popup');
 const close_edit_book_form_button = document.querySelector('#close-edit-book-form');
 let Create_Book = true;
 let Editing_book = false;
-let Books = [];
+let Title_Error_Msg = "Title is too long.",Author_Error_Msg = "Author name is too long.",NumOfPages_Error_Msg = "Number of pages is either too little or not even a number.",No_Errors = "No errors.";
+let Books_Arr = [];
 let AllBooksIdx = 0;
 function Book(Title,Author,NumOfPages,Read){
     this.Title = Title;
@@ -18,11 +18,12 @@ function Book(Title,Author,NumOfPages,Read){
     this.Read = Read;
 }
 Book.prototype.PrintDetails = function(){
-    return "Title: " + this.Title + " Author: " + this.Author + " Page Count:" + this.NumOfPages + "This book's read status is: " + this.Read;
+    return "Title: " + this.Title + " Author: " + this.Author + " Page Count: " + this.NumOfPages + " This book's read status is: " + this.Read;
 }
 function StoreBook(BookObject){
-    Books[AllBooksIdx] = BookObject;
+    Books_Arr[AllBooksIdx] = BookObject;
     AllBooksIdx++;
+    localStorage.setItem('Books_Arr', JSON.stringify(Books_Arr));
 }
 // function EditBook(BookObj){
     //TBD
@@ -57,13 +58,13 @@ function CreateBookDiv(BookObj){
     }
     edit_book_button.innerText = "Edit Book";
     edit_book_button.classList.add('edit_book_button');
-    book_div.appendChild(edit_book_button);
+//    book_div.appendChild(edit_book_button);
     remove_book_button.innerText = 'Delete Book'; 
     remove_book_button.classList.add('remove_book_button');
     book_div.appendChild(remove_book_button);
     all_books.appendChild(book_div);
     remove_book_button.addEventListener('click',function(){
-        Books.splice(Books.indexOf(BookObj),1);
+        Books_Arr.splice(Books_Arr.indexOf(BookObj),1);
         all_books.removeChild(book_div);
     });
     read_status_button.addEventListener('click',function(){
@@ -84,10 +85,17 @@ function CreateBookDiv(BookObj){
     });
 }
 function ValidateForm(){
-    let Title = add_book_form.elements[0].value;
-    let Author = add_book_form.elements[1].value;
-    let NumOfPages = add_book_form.elements[2].value;
-    //TBD
+    let Temp_Title = add_book_form.elements[0].value;
+    let Temp_Author = add_book_form.elements[1].value;
+    let Temp_NumOfPages = add_book_form.elements[2].value;
+    if (Temp_Title.length > 20)
+        return Title_Error_Msg;
+    else if (Temp_Author.length > 20)
+        return Author_Error_Msg;
+    else if (Temp_NumOfPages < 20 || isNaN(Temp_NumOfPages))
+        return NumOfPages_Error_Msg;
+    else
+        return No_Errors;
 }
 function AddNewbook(){ 
     console.log("function was called");
@@ -109,10 +117,10 @@ function AddNewbook(){
     // console.log("function reached end.");
 }
 function DisplayAllBooks(){
-    for (let i = 0; i < AllBooksIdx + 1; i++){
-        console.log("Book Number: " + i + 1);
-        console.log(Books[i].PrintDetails());
-    }
+    // const books = document.querySelectorAll('.book');
+    // books.forEach(book => all_books.removeChild(book));
+    for (let i = 0; i < AllBooksIdx + 1; i++)
+        CreateBookDiv(Books_Arr[i]);
 }
 function DisplayBookForm(){
     add_book_button.innerText = "Cancel";
@@ -126,9 +134,11 @@ function HideBookForm(){
 }
 add_book_form && add_book_form.addEventListener('submit',function(e) {
     e.preventDefault();
-    if (!ValidateForm())
+    let Error_Msg = ValidateForm();
+    if (Error_Msg != No_Errors){
+        alert(Error_Msg);
         return;
-        //TBD
+    }
     else {
         HideBookForm();
         AddNewbook();
@@ -155,10 +165,21 @@ close_edit_book_form_button.addEventListener('click',function(){
     edit_book_popup.style.display = "none";
     Editing_book = false;
 });
-//console.log(DisplayAllBooks());
+function ResetDisplay(){
+    if(localStorage.getItem("Books_Arr") === "null") {
+        Books_Arr = [];
+    }
+    else {
+        let BookObjects = localStorage.getItem('Books_Arr');
+        BookObjects = JSON.parse(BookObjects);
+        Books_Arr = BookObjects;
+        DisplayAllBooks();
+    }
+}
 add_book_popup.style.display = "none";
 edit_book_popup.style.display = "none";
 //testing purposes
-const Test = new Book("The Power of Habit","Charles Duhigg","371",true);
-StoreBook(Test);
-CreateBookDiv(Test);
+// const Test = new Book("The Power of Habit","Charles Duhigg","371",true);
+// StoreBook(Test);
+// CreateBookDiv(Test);
+ResetDisplay();
