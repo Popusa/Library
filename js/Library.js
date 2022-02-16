@@ -22,7 +22,6 @@ Book.prototype.PrintDetails = function(){
 }
 function StoreBook(BookObject){
     Books_Arr.push(BookObject);
-//    AllBooksIdx++;
     localStorage.setItem('Books_Arr', JSON.stringify(Books_Arr));
     BookCount++;
 }
@@ -147,8 +146,9 @@ add_book_form && add_book_form.addEventListener('submit',function(e) {
         return;
     }
     else {
-//        HideBookForm();
+        HideBookForm();
         AddNewbook();
+        add_book_form.reset();
     }
 });
 edit_book_form && edit_book_form.addEventListener('submit',function(e){
