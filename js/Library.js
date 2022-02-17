@@ -11,7 +11,7 @@ let Editing_book = false;
 let edited_book_idx;
 let Title_Error_Msg = "Title is too long.",Author_Error_Msg = "Author name is too long.",NumOfPages_Error_Msg = "Number of pages is either too little or not even a number.",No_Errors = "No errors.";
 let Books_Arr = [];
-let BookCount = 0;
+let BookCount;
 function Book(Title,Author,NumOfPages,Read){
     this.Title = Title;
     this.Author = Author;
@@ -25,17 +25,18 @@ function StoreBook(BookObject){
     Books_Arr.push(BookObject);
     localStorage.setItem('Books_Arr', JSON.stringify(Books_Arr));
     BookCount++;
+    localStorage.setItem('BookCount',BookCount);
 }
 function EditBook(){
     Books_Arr[edited_book_idx].Title = edit_book_form.elements[0].value;
-    Books_Arr[edited_book_idx].Title = edit_book_form.elements[1].value;
-    Books_Arr[edited_book_idx].Title = edit_book_form.elements[2].value;
-    if (document.getElementById('read-status-yes').checked == true)
-        NewBook.Read = true;
+    Books_Arr[edited_book_idx].Author = edit_book_form.elements[1].value;
+    Books_Arr[edited_book_idx].NumOfPages = edit_book_form.elements[2].value;
+    if (edit_book_form.elements[3].checked == true)
+        Books_Arr[edited_book_idx].Read = true;
     else
-        NewBook.Read = false;
-    localStorage.setItem('Books_Arr', JSON.stringify(Books_Arr));
-    DisplayAllBooks();
+        Books_Arr[edited_book_idx].Read = false;
+        localStorage.setItem('Books_Arr', JSON.stringify(Books_Arr));
+        DisplayAllBooks();
 }
 function CreateBookDiv(BookObj){
     const book_div = document.createElement('div');
@@ -77,20 +78,20 @@ function CreateBookDiv(BookObj){
         localStorage.setItem('Books_Arr', JSON.stringify(Books_Arr));
         DisplayAllBooks();
         BookCount--;
+        localStorage.setItem('BookCount',BookCount);
     });
     read_status_button.addEventListener('click',function(){
         BookObj.Read = !BookObj.Read;
         if(BookObj.Read == false) {
             read_status_button.innerText = 'Not Read';
             read_status_button.style.backgroundColor = 'red';
-            localStorage.setItem('Books_Arr', JSON.stringify(Books_Arr));
-            DisplayAllBooks();
-        }else {
+        }
+        else {
             read_status_button.innerText = 'Read';
             read_status_button.style.backgroundColor = 'green';
-            localStorage.setItem('Books_Arr', JSON.stringify(Books_Arr));
-            DisplayAllBooks();
         }
+        localStorage.setItem('Books_Arr', JSON.stringify(Books_Arr));
+        DisplayAllBooks();
     });
     edit_book_button.addEventListener('click',function(){
         if (!Editing_book){
@@ -99,12 +100,11 @@ function CreateBookDiv(BookObj){
             edit_book_form.elements[0].value = BookObj.Title;
             edit_book_form.elements[1].value = BookObj.Author;
             edit_book_form.elements[2].value = BookObj.NumOfPages;
-            if (document.getElementById('read-status-yes').checked == true){
-                edited_book_idx = Books_Arr.indexOf(BookObj);
-                return;
-            }
-            else
-                document.getElementById('read-status-yes').checked = true;
+            // if (edit_book_form.getElementById('read-status-yes').checked == true)
+            //     edit_book_form.elements[3].checked = true;
+            // else
+            //     edit_book_form.elements[4].checked = true;  
+            edited_book_idx = Books_Arr.indexOf(BookObj);
         }
         else
             return;
@@ -135,7 +135,7 @@ function ValidateForm(){
 }
 function AddNewbook(){ 
     console.log("function was called");
-    if (BookCount == 42){
+    if (BookCount == 39){
         alert("limit reached.");
         return;
     }
@@ -182,9 +182,9 @@ add_book_form && add_book_form.addEventListener('submit',function(e) {
         return;
     }
     else {
-        HideBookForm();
+//        HideBookForm();
         AddNewbook();
-        add_book_form.reset();
+//        add_book_form.reset();
     }
 });
 edit_book_form && edit_book_form.addEventListener('submit',function(e){
@@ -220,12 +220,14 @@ close_edit_book_form_button.addEventListener('click',function(){
 function ResetDisplay(){
     if(localStorage.getItem("Books_Arr") === null) {
         Books_Arr = [];
+        BookCount = 0;
     }
     else {
         let BookObjects = localStorage.getItem('Books_Arr');
         BookObjects = JSON.parse(BookObjects);
         Books_Arr = BookObjects;
         DisplayAllBooks();
+        BookCount = localStorage.getItem('BookCount');    
     }
 }
 add_book_popup.style.display = "none";
