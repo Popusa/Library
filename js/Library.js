@@ -8,6 +8,7 @@ const edit_book_popup = document.querySelector('.edit-book-popup');
 const close_edit_book_form_button = document.querySelector('#close-edit-book-form');
 let Create_Book = true;
 let Editing_book = false;
+let edited_book_idx;
 let Title_Error_Msg = "Title is too long.",Author_Error_Msg = "Author name is too long.",NumOfPages_Error_Msg = "Number of pages is either too little or not even a number.",No_Errors = "No errors.";
 let Books_Arr = [];
 let BookCount = 0;
@@ -25,9 +26,17 @@ function StoreBook(BookObject){
     localStorage.setItem('Books_Arr', JSON.stringify(Books_Arr));
     BookCount++;
 }
-// function EditBook(BookObj){
-    //TBD
-// }
+function EditBook(){
+    Books_Arr[edited_book_idx].Title = edit_book_form.elements[0].value;
+    Books_Arr[edited_book_idx].Title = edit_book_form.elements[1].value;
+    Books_Arr[edited_book_idx].Title = edit_book_form.elements[2].value;
+    if (document.getElementById('read-status-yes').checked == true)
+        NewBook.Read = true;
+    else
+        NewBook.Read = false;
+    localStorage.setItem('Books_Arr', JSON.stringify(Books_Arr));
+    DisplayAllBooks();
+}
 function CreateBookDiv(BookObj){
     const book_div = document.createElement('div');
     const title_div = document.createElement('div');
@@ -58,7 +67,7 @@ function CreateBookDiv(BookObj){
     }
     edit_book_button.innerText = "Edit Book";
     edit_book_button.classList.add('edit_book_button');
-//    book_div.appendChild(edit_book_button);
+    book_div.appendChild(edit_book_button);
     remove_book_button.innerText = 'Delete Book'; 
     remove_book_button.classList.add('remove_book_button');
     book_div.appendChild(remove_book_button);
@@ -87,13 +96,34 @@ function CreateBookDiv(BookObj){
         if (!Editing_book){
             edit_book_popup.style.display = "block";
             Editing_book = true;
+            edit_book_form.elements[0].value = BookObj.Title;
+            edit_book_form.elements[1].value = BookObj.Author;
+            edit_book_form.elements[2].value = BookObj.NumOfPages;
+            if (document.getElementById('read-status-yes').checked == true){
+                edited_book_idx = Books_Arr.indexOf(BookObj);
+                return;
+            }
+            else
+                document.getElementById('read-status-yes').checked = true;
         }
+        else
+            return;
     });
 }
 function ValidateForm(){
-    let Temp_Title = add_book_form.elements[0].value;
-    let Temp_Author = add_book_form.elements[1].value;
-    let Temp_NumOfPages = add_book_form.elements[2].value;
+    let Temp_Title;
+    let Temp_Author;
+    let Temp_NumOfPages;      
+    if (Editing_book){
+        Temp_Title = edit_book_form.elements[0].value;
+        Temp_Author = edit_book_form.elements[1].value;
+        Temp_NumOfPages = edit_book_form.elements[2].value;        
+    }
+    else{
+        Temp_Title = add_book_form.elements[0].value;
+        Temp_Author = add_book_form.elements[1].value;
+        Temp_NumOfPages = add_book_form.elements[2].value;
+    }
     if (Temp_Title.length > 20)
         return Title_Error_Msg;
     else if (Temp_Author.length > 20)
@@ -134,9 +164,15 @@ function DisplayBookForm(){
     Create_Book = false;
 }
 function HideBookForm(){
-    add_book_button.innerText = "Add book";
-    add_book_popup.style.display = "none";
-    Create_Book = true;
+    if (Editing_book){
+        edit_book_popup.style.display = "none";
+        Editing_book = false;
+    }
+    else{
+        add_book_button.innerText = "Add book";
+        add_book_popup.style.display = "none";
+        Create_Book = true;
+    }
 }
 add_book_form && add_book_form.addEventListener('submit',function(e) {
     e.preventDefault();
@@ -153,7 +189,16 @@ add_book_form && add_book_form.addEventListener('submit',function(e) {
 });
 edit_book_form && edit_book_form.addEventListener('submit',function(e){
     e.preventDefault();
-    //TBD
+    let Error_Msg = ValidateForm();
+    if (Error_Msg != No_Errors){
+        alert(Error_Msg);
+        return;
+    }
+    else {
+        HideBookForm();
+        EditBook();
+        edit_book_form.reset();
+    }
 });
 add_book_button.addEventListener('click',function(){
     if (Editing_book){
