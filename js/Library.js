@@ -182,9 +182,9 @@ add_book_form && add_book_form.addEventListener('submit',function(e) {
         return;
     }
     else {
-//        HideBookForm();
+        HideBookForm();
         AddNewbook();
-//        add_book_form.reset();
+        add_book_form.reset();
     }
 });
 edit_book_form && edit_book_form.addEventListener('submit',function(e){
