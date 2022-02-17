@@ -11,7 +11,7 @@ let Editing_book = false;
 let edited_book_idx;
 let Title_Error_Msg = "Title is too long.",Author_Error_Msg = "Author name is too long.",NumOfPages_Error_Msg = "Number of pages is either too little or not even a number.",No_Errors = "No errors.";
 let Books_Arr = [];
-let BookCount;
+let BookCount = 0;
 function Book(Title,Author,NumOfPages,Read){
     this.Title = Title;
     this.Author = Author;
@@ -19,7 +19,7 @@ function Book(Title,Author,NumOfPages,Read){
     this.Read = Read;
 }
 Book.prototype.PrintDetails = function(){
-    return "Title: " + this.Title + " Author: " + this.Author + " Page Count: " + this.NumOfPages + " This book's read status is: " + this.Read;
+    return "Book Number: " + BookCount + ", Title: " + this.Title + " Author: " + this.Author + " Page Count: " + this.NumOfPages + " This book's read status is: " + this.Read;
 }
 function StoreBook(BookObject){
     Books_Arr.push(BookObject);
@@ -135,7 +135,7 @@ function ValidateForm(){
 }
 function AddNewbook(){ 
     console.log("function was called");
-    if (BookCount == 39){
+    if (BookCount >= 39){
         alert("limit reached.");
         return;
     }
@@ -217,7 +217,7 @@ close_edit_book_form_button.addEventListener('click',function(){
     edit_book_popup.style.display = "none";
     Editing_book = false;
 });
-function ResetDisplay(){
+function LoadStoredDetails(){
     if(localStorage.getItem("Books_Arr") === null) {
         Books_Arr = [];
         BookCount = 0;
@@ -227,13 +227,18 @@ function ResetDisplay(){
         BookObjects = JSON.parse(BookObjects);
         Books_Arr = BookObjects;
         DisplayAllBooks();
-        BookCount = localStorage.getItem('BookCount');    
+        if (BookCount === NaN)
+            BookCount = Books_Arr.length;
+        else
+            BookCount = localStorage.getItem('BookCount');    
     }
 }
 add_book_popup.style.display = "none";
 edit_book_popup.style.display = "none";
 //testing purposes
+// for(let i = 0; i < 45; i++){
 // const Test = new Book("The Power of Habit","Charles Duhigg","371",true);
 // StoreBook(Test);
 // CreateBookDiv(Test);
-ResetDisplay();
+// }
+LoadStoredDetails();
