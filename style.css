@@ -62,7 +62,7 @@ a:hover{
 .book{
     width:130px;
     height:170px;
-    font-size:14px;
+    font-size:1.1em;
     background-color: crimson;
     border-radius:1em;
     border: 10px solid rgb(0, 0, 0);
@@ -70,10 +70,12 @@ a:hover{
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding:8px;
+    padding:6px;
     gap:8px;
 }
-.read_status_button,.remove_book_button{
+.read_status_button,.edit_book_button,.remove_book_button{
+    width:100%;
+    font-size:0.75em;
     color:white;
 }
 .add-book-popup,.edit-book-popup{
