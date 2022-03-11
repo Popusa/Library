@@ -1,11 +1,11 @@
-const add_book_form = document.querySelector('#add-book-form');
-const edit_book_form = document.querySelector('#edit-book-form');
+const add_book_form = document.querySelector('#add_book_form');
+const edit_book_form = document.querySelector('#edit_book_form');
 const all_books = document.querySelector('.all_books');
-const add_book_button = document.querySelector('#add-book-button');
+const add_book_button = document.querySelector('#add_book_button');
 const entire_page = document.querySelector('.fullpage');
-const add_book_popup = document.querySelector(".add-book-popup");
-const edit_book_popup = document.querySelector('.edit-book-popup');
-const close_edit_book_form_button = document.querySelector('#close-edit-book-form');
+const add_book_popup = document.querySelector(".add_book_popup");
+const edit_book_popup = document.querySelector('.edit_book_popup');
+const close_edit_book_form_button = document.querySelector('#close_edit_book_form');
 let create_book = false;
 let editing_book = false;
 let edited_book_idx;
@@ -99,11 +99,7 @@ function CreateBookDiv(BookObj){
             editing_book = true;
             edit_book_form.elements[0].value = BookObj.Title;
             edit_book_form.elements[1].value = BookObj.Author;
-            edit_book_form.elements[2].value = BookObj.NumOfPages;
-            // if (edit_book_form.getElementById('read-status-yes').checked == true)
-            //     edit_book_form.elements[3].checked = true;
-            // else
-            //     edit_book_form.elements[4].checked = true;  
+            edit_book_form.elements[2].value = BookObj.NumOfPages; 
             edited_book_idx = books_arr.indexOf(BookObj);
         }
         else
@@ -143,7 +139,7 @@ function AddNewbook(){
     NewBook.Title = add_book_form.elements[0].value;
     NewBook.Author = add_book_form.elements[1].value;
     NewBook.NumOfPages = add_book_form.elements[2].value;
-    if (document.getElementById('read-status-yes').checked == true)
+    if (document.getElementById('read_status_yes').checked == true)
         NewBook.Read = true;
     else
         NewBook.Read = false;
