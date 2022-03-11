@@ -43,8 +43,7 @@ a:hover{
     padding:12px;
     position:fixed;
     top: 50%;
-    left: 48%;
-    margin: -100px 0 0 auto;
+    margin: -100px 0 0 46%;
 }
 .add_book_form_legend,.edit_book_form_legend{
     padding:8px;

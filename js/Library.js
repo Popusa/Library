@@ -6,7 +6,7 @@ const entire_page = document.querySelector('.fullpage');
 const add_book_popup = document.querySelector(".add_book_popup");
 const edit_book_popup = document.querySelector('.edit_book_popup');
 const close_edit_book_form_button = document.querySelector('#close_edit_book_form');
-let create_book = false;
+let creating_book = false;
 let editing_book = false;
 let edited_book_idx;
 let title_error_msg = "Title is too long.",author_error_Msg = "Author name is too long.",num_of_Pages_error_msg = "Number of pages is either too little or not even a number.",no_errors = "No errors.";
@@ -157,7 +157,7 @@ function DisplayAllBooks(){
 function DisplayBookForm(){
     add_book_button.innerText = "Cancel";
     add_book_popup.style.display = "block";
-    create_book = true;
+    creating_book = true;
 }
 function HideBookForm(){
     if (editing_book){
@@ -167,7 +167,7 @@ function HideBookForm(){
     else{
         add_book_button.innerText = "Add book";
         add_book_popup.style.display = "none";
-        create_book = false;
+        creating_book = false;
     }
 }
 add_book_form && add_book_form.addEventListener('submit',function(e) {
@@ -202,7 +202,7 @@ add_book_button.addEventListener('click',function(){
         return;
     }
     else{
-    if (create_book){
+    if (creating_book){
         HideBookForm();
     }
     else
