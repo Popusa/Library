@@ -32,9 +32,9 @@ function edit_book(){
     books_arr[edited_book_idx].author = edit_book_form.elements[1].value;
     books_arr[edited_book_idx].num_of_pages = edit_book_form.elements[2].value;
     if (edit_book_form.elements[3].checked == true)
-        books_arr[edited_book_idx].Read = true;
+        books_arr[edited_book_idx].read = true;
     else
-        books_arr[edited_book_idx].Read = false;
+        books_arr[edited_book_idx].read = false;
         localStorage.setItem('books_arr', JSON.stringify(books_arr));
         display_all_books();
 }
@@ -59,7 +59,7 @@ function create_book_div(book_obj){
     book_div.appendChild(nop_div);
     read_status_button.classList.add('read_status_button');    
     book_div.appendChild(read_status_button);
-    if(book_obj.Read == false) {
+    if(book_obj.read == false) {
         read_status_button.innerText = 'Not Read';
         read_status_button.style.backgroundColor = 'red';
     }
@@ -82,8 +82,8 @@ function create_book_div(book_obj){
         localStorage.setItem('book_count',book_count);
     });
     read_status_button.addEventListener('click',function(){
-        book_obj.Read = !book_obj.Read;
-        if(book_obj.Read == false) {
+        book_obj.read = !book_obj.read;
+        if(book_obj.read == false) {
             read_status_button.innerText = 'Not Read';
             read_status_button.style.backgroundColor = 'red';
         }
@@ -141,9 +141,9 @@ function add_new_book(){
     new_book.author = add_book_form.elements[1].value;
     new_book.num_of_pages = add_book_form.elements[2].value;
     if (document.getElementById('read_status_yes').checked == true)
-        new_book.Read = true;
+        new_book.read = true;
     else
-        new_book.Read = false;
+        new_book.read = false;
     store_book(new_book);
     create_book_div(new_book);
     console.log(new_book.print_details());
