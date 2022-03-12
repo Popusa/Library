@@ -19,7 +19,7 @@ function book(title,author,num_of_pages,read){
     this.read = read;
 }
 book.prototype.print_details = function(){
-    return "Book Number: " + book_count + ", Title: " + this.title + " Author: " + this.author + " Page Count: " + this.num_of_pages + " This book's read status is: " + this.read;
+    return "Book Number: " + book_count + ", Title: " + this.title + ", Author: " + this.author + ", Page Count: " + this.num_of_pages + ", This book's read status is: " + this.read;
 }
 function store_book(book_object){
     books_arr.push(book_object);
@@ -77,9 +77,9 @@ function create_book_div(book_obj){
     remove_book_button.addEventListener('click',function(){
         books_arr.splice(books_arr.indexOf(book_obj),1);
         localStorage.setItem('books_arr', JSON.stringify(books_arr));
-        display_all_books();
         book_count--;
         localStorage.setItem('book_count',book_count);
+        display_all_books();
     });
     read_status_button.addEventListener('click',function(){
         book_obj.read = !book_obj.read;
@@ -154,6 +154,7 @@ function display_all_books(){
     books.forEach(book => all_books.removeChild(book));
     for (let i = 0; i < books_arr.length; i++)
         create_book_div(books_arr[i]);
+    console.log("Total number of books: " + book_count);
 }
 function display_book_form(){
     add_book_button.innerText = "Cancel";
@@ -223,11 +224,11 @@ function load_stored_details(){
         let book_objects = localStorage.getItem('books_arr');
         book_objects = JSON.parse(book_objects);
         books_arr = book_objects;
-        display_all_books();
         if (book_count === NaN)
             book_count = books_arr.length;
         else
-            book_count = localStorage.getItem('book_count');    
+            book_count = localStorage.getItem('book_count');
+        display_all_books();    
     }
 }
 add_book_popup.style.display = "none";
