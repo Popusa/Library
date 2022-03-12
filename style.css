@@ -37,6 +37,7 @@ a:hover{
 }
 .add_book_form_container,.edit_book_form_container{
     text-align:center;
+    font-size: 1em;
     background-image: url(images/book-cover.jpg);
     background-repeat: no-repeat;
     display:flex;
@@ -46,7 +47,7 @@ a:hover{
     position:fixed;
     top:35%;
     left:50%;
-    margin-left:-80px;
+    margin-left:-115px;
     margin-right:0;
 }
 .add_book_form_legend,.edit_book_form_legend{
