@@ -31,9 +31,7 @@ a:hover{
     height: calc(100% - 70px)
 }
 .bookshelf{
-    color:white;
     width:100%;
-    background-image: url("images/bg.jpg");
 }
 .add_book_form_container,.edit_book_form_container{
     text-align:center;
@@ -49,6 +47,7 @@ a:hover{
     left:50%;
     margin-left:-115px;
     margin-right:0;
+    color:white;
 }
 .add_book_form_legend,.edit_book_form_legend{
     padding:8px;
