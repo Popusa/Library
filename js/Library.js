@@ -12,15 +12,16 @@ let edited_book_idx;
 let title_error_msg = "Title is too long.",author_error_Msg = "Author name is too long.",num_of_Pages_error_msg = "Number of pages is either too little or not even a number.",no_errors = "No errors.";
 let books_arr = [];
 let book_count = 0;
-//will be refactored into a class
-function book(title,author,num_of_pages,read){
-    this.title = title;
-    this.author = author;
-    this.num_of_pages = num_of_pages;
-    this.read = read;
-}
-book.prototype.print_details = function(){
-    return "Book Number: " + book_count + ", Title: " + this.title + ", Author: " + this.author + ", Page Count: " + this.num_of_pages + ", This book's read status is: " + this.read;
+class book{
+    constructor(title,author,num_of_pages,read){
+        this.title = title;
+        this.author = author;
+        this.num_of_pages = num_of_pages;
+        this.read = read;
+    }
+    get_details(){
+        return "Book Number: " + book_count + ", Title: " + this.title + ", Author: " + this.author + ", Page Count: " + this.num_of_pages + ", This book's read status is: " + this.read;
+    }
 }
 function store_book(book_object){
     books_arr.push(book_object);
@@ -81,6 +82,7 @@ function create_book_div(book_obj){
         book_count--;
         localStorage.setItem('book_count',book_count);
         display_all_books();
+        console.log("Total number of books: " + book_count);
     });
     read_status_button.addEventListener('click',function(){
         book_obj.read = !book_obj.read;
@@ -143,7 +145,8 @@ function add_new_book(){
         new_book.read = false;
     store_book(new_book);
     create_book_div(new_book);
-    console.log(new_book.print_details());
+    console.log(new_book.get_details());
+    console.log("Total number of books: " + book_count);
     // console.log("function reached end.");
 }
 function display_all_books(){
@@ -151,7 +154,6 @@ function display_all_books(){
     books.forEach(book => all_books.removeChild(book));
     for (let i = 0; i < books_arr.length; i++)
         create_book_div(books_arr[i]);
-    console.log("Total number of books: " + book_count);
 }
 function display_book_form(){
     add_book_button.innerText = "Cancel";
@@ -231,3 +233,4 @@ function load_stored_details(){
 add_book_popup.style.display = "none";
 edit_book_popup.style.display = "none";
 load_stored_details();
+console.log("Total number of books: " + book_count);
