@@ -1,3 +1,4 @@
+//DOM ELEMENTS
 const add_book_form = document.querySelector('#add_book_form');
 const edit_book_form = document.querySelector('#edit_book_form');
 const all_books = document.querySelector('.all_books');
@@ -6,12 +7,17 @@ const entire_page = document.querySelector('.fullpage');
 const add_book_popup = document.querySelector(".add_book_popup");
 const edit_book_popup = document.querySelector('.edit_book_popup');
 const close_edit_book_form_button = document.querySelector('#close_edit_book_form');
+//variables to control forms display
 let creating_book = false;
 let editing_book = false;
+//saving edited book index to allow editing of book attributes
 let edited_book_idx;
+//error msgs to allow for cleaner code in form validation function
 let title_error_msg = "Title is too long.",author_error_Msg = "Author name is too long.",num_of_Pages_error_msg = "Number of pages is either too little or not even a number.",no_errors = "No errors.";
+//book list that holds all the objects and the book count for keeping track
 let books_arr = [];
 let book_count = 0;
+//book class contains construtor and get details which returns the book details as a string.
 class book{
     constructor(title,author,num_of_pages,read){
         this.title = title;
@@ -23,10 +29,14 @@ class book{
         return "Book Number: " + book_count + ", Title: " + this.title + ", Author: " + this.author + ", Page Count: " + this.num_of_pages + ", This book's read status is: " + this.read;
     }
 }
+//store book
 function store_book(book_object){
+    //save book in book list
     books_arr.push(book_object);
+    //save book in localstorage to allow for data persistence
     localStorage.setItem('books_arr', JSON.stringify(books_arr));
     book_count++;
+    //save book count, useful for debugging and maybe could be used for a new feature later on
     localStorage.setItem('book_count',book_count);
 }
 function edit_book(){
